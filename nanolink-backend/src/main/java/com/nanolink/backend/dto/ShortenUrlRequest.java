@@ -1,8 +1,13 @@
 package com.nanolink.backend.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import java.util.Objects;
 
 public class ShortenUrlRequest {
+
+    @NotBlank(message = "O campo de URL não pode estar vazio.")
+    @URL(message = "Por favor, insira uma URL válida.")
     private String url;
 
     public ShortenUrlRequest() {

@@ -19,24 +19,24 @@ Todas as ações geradas devem incluir metadados para rastreabilidade:
 ## 3. COMANDOS DE CICLO DE VIDA (GATILHOS)
 
 ### FASE 1: DEFINIÇÃO & ARQUITETURA
-* **@req** `[ideia]` -> O @Product cria uma Issue de Épico e quebra em User Stories com critérios Gherkin. 
-* **@arch** `[contexto]` -> O @Architect cria uma Issue para definir a arquitetura e gera um arquivo `ADR-001.md` com a decisão. Pedindo opnião de todos os Agentes.
-* **@defenv** `[stack]` -> O @DevOps sugere o stack de infra estrutura dependendo da complexidade do projeto, preferencialmente usando conteiners docker como base.
-* **@env** `[stack]` -> O @DevOps gera os comandos para criar o ambiente (Docker/Terraform) e labels de infra.
-* **@plan** `[feature]` -> Todos colaboram na especificação.
+* **/req** `[ideia]` -> O @Product cria uma Issue de Épico e quebra em User Stories com critérios Gherkin. 
+* **/arch** `[contexto]` -> O @Architect cria uma Issue para definir a arquitetura e gera um arquivo `ADR-001.md` com a decisão. Pedindo opnião de todos os Agentes.
+* **/defenv** `[stack]` -> O @DevOps sugere o stack de infra estrutura dependendo da complexidade do projeto, preferencialmente usando conteiners docker como base.
+* **/env** `[stack]` -> O @DevOps gera os comandos para criar o ambiente (Docker/Terraform) e labels de infra.
+* **/plan** `[feature]` -> Todos colaboram na especificação.
 
 
 ### FASE 2: DESENVOLVIMENTO
-* **@task** `[descrição]` -> Criação rápida de tasks no GitHub Projects ou Issues.
-* **@code** `[issue-id]` -> O @Dev gera o código. Após o commit, a issue é fechada com um comentário resumindo as mudanças importantes.
-* **@commit** `[msg]` -> Gera commit com assinatura do agente (Trailer).
-* **@cover** `[cobertura]` -> Gera o report de cobertura do codigo do projeto. Depende de já ter estrutura de testes automaticos. Mostra o report com o resultado.
-* **@gen-tests** `[tests]` -> Caso nao tenhamos testes automaticos ainda, cria a estrutura básica, roda o comando @cover para ter a cobertura de codigo e com o resultado gera testes para o codigo não coberto. Se já tivermos a estrutura pula a criação da estrutura basica de testes, executa o comando @cover e gera testes para partes do código não cobertos.
-* **@test** `[test]` -> Executa os testes automáticos medindo a cobertura dos mesmos. Mostra o report com o resultado.
+* **/task** `[descrição]` -> Criação rápida de tasks no GitHub Projects ou Issues. toda a task deve ter um a issue criada e ao final a issue deve ser fechada. 
+* **/code** `[issue-id]` -> O @Dev gera o código. Após o commit, a issue é fechada com um comentário resumindo as mudanças importantes.
+* **/commit** `[msg]` -> Gera commit com assinatura do agente (Trailer).
+* **/cover** `[cobertura]` -> Gera o report de cobertura do codigo do projeto. Depende de já ter estrutura de testes automaticos. Mostra o report com o resultado.
+* **/gen-tests** `[tests]` -> Caso nao tenhamos testes automaticos ainda, cria a estrutura básica, roda o comando @cover para ter a cobertura de codigo e com o resultado gera testes para o codigo não coberto. Se já tivermos a estrutura pula a criação da estrutura basica de testes, executa o comando @cover e gera testes para partes do código não cobertos.
+* **/test** `[test]` -> Executa os testes automáticos medindo a cobertura dos mesmos. Mostra o report com o resultado.
 
 ### FASE 3: BUILD & PIPELINE
-* **@pipeline** `[tipo]` -> O @DevOps gera o arquivo `.github/workflows/main.yml` para CI/CD.
-* **@build** -> Comandos para rodar build local e verificar integridade.
+* **/pipeline** `[tipo]` -> O @DevOps gera o arquivo `.github/workflows/main.yml` para CI/CD.
+* **/build** -> Comandos para rodar build local e verificar integridade.
 
 ## 4. FORMATO DE SAÍDA (PADRÃO SHELL)
 O sistema deve mostrar o plano de ação para cada ação composta, ações que não forem diretas exemplo: criação de épico com multiplas user stories, e deve pedir o ok para o usuário no prompt do gemini-cli.
@@ -45,3 +45,10 @@ Para interações com o sistema, gere SEMPRE blocos de código executáveis:
 Exemplo de @commit:
 ```bash
 git commit -m "feat: implement login logic" -m "Co-authored-by: Gemini Agent <gemini@ai.bot>" -m "X-Agent: @Dev"
+```
+
+
+## 5. Preferências gerais
+Não usar a biblioteca lombok do java, não faz sentido mais quando usamos vibe coding e agentes de código.
+Toda a tarefa deve ser, antes de iniciada, documentada como issue no sistema de issue. E ao ser concluida, deve ser finalizada, ou seja, a issue deve ser fechada. Não deveríamos ter tarefas sendo executadas sem issues, seja ela de quanquer agente.
+

@@ -19,14 +19,18 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 
     @Override
     public String createShortUrl(String originalUrl) {
-        String shortCode;
-        do {
-            shortCode = RandomStringUtils.randomAlphanumeric(SHORT_CODE_LENGTH);
-        } while (urlMappingRepository.findByShortCode(shortCode).isPresent());
+        return urlMappingRepository.findByOriginalUrl(originalUrl)
+                .map(UrlMapping::getShortCode)
+                .orElseGet(() -> {
+                    String shortCode;
+                    do {
+                        shortCode = RandomStringUtils.randomAlphanumeric(SHORT_CODE_LENGTH);
+                    } while (urlMappingRepository.findByShortCode(shortCode).isPresent());
 
-        UrlMapping urlMapping = new UrlMapping(shortCode, originalUrl);
-        urlMappingRepository.save(urlMapping);
-        return shortCode;
+                    UrlMapping urlMapping = new UrlMapping(shortCode, originalUrl);
+                    urlMappingRepository.save(urlMapping);
+                    return shortCode;
+                });
     }
 
     @Override

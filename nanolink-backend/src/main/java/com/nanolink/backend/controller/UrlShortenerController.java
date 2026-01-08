@@ -3,6 +3,7 @@ package com.nanolink.backend.controller;
 import com.nanolink.backend.dto.ShortenUrlRequest;
 import com.nanolink.backend.dto.ShortenUrlResponse;
 import com.nanolink.backend.service.UrlShorteningService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +23,8 @@ public class UrlShortenerController {
         this.urlShorteningService = urlShorteningService;
     }
 
-    @PostMapping("/api/v1/shorten")
-    public ResponseEntity<ShortenUrlResponse> shortenUrl(@RequestBody ShortenUrlRequest request) {
+    @PostMapping("/api/v1/s")
+    public ResponseEntity<ShortenUrlResponse> shortenUrl(@Valid @RequestBody ShortenUrlRequest request) {
         String shortCode = urlShorteningService.createShortUrl(request.getUrl());
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/{shortCode}")
@@ -35,6 +36,6 @@ public class UrlShortenerController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortCode) {
         String originalUrl = urlShorteningService.getOriginalUrl(shortCode);
-        return ResponseEntity.status(302).location(URI.create(originalUrl)).build();
+        return ResponseEntity.status(301).location(URI.create(originalUrl)).build();
     }
 }
