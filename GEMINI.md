@@ -48,7 +48,10 @@ git commit -m "feat: implement login logic" -m "Co-authored-by: Gemini Agent <ge
 ```
 
 
+
 ## 5. Preferências gerais
 Não usar a biblioteca lombok do java, não faz sentido mais quando usamos vibe coding e agentes de código.
 Toda a tarefa deve ser, antes de iniciada, documentada como issue no sistema de issue. E ao ser concluida, deve ser finalizada, ou seja, a issue deve ser fechada. Não deveríamos ter tarefas sendo executadas sem issues, seja ela de quanquer agente.
+
+Para visualizar as issues do git hub use o comando gh api repos/magacho/enc-brasuca/issues/# onde # é o numero da issue, esse é o retorno mais completo.
 
