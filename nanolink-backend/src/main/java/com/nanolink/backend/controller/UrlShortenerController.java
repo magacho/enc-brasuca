@@ -4,6 +4,8 @@ import com.nanolink.backend.dto.ShortenUrlRequest;
 import com.nanolink.backend.dto.ShortenUrlResponse;
 import com.nanolink.backend.service.UrlShorteningService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import java.net.URI;
 @RestController
 public class UrlShortenerController {
 
+    private static final Logger log = LoggerFactory.getLogger(UrlShortenerController.class);
     private final UrlShorteningService urlShorteningService;
 
     public UrlShortenerController(UrlShorteningService urlShorteningService) {
@@ -26,6 +29,9 @@ public class UrlShortenerController {
     @PostMapping("/api/v1/s")
     public ResponseEntity<ShortenUrlResponse> shortenUrl(@Valid @RequestBody ShortenUrlRequest request) {
         String shortCode = urlShorteningService.createShortUrl(request.getUrl());
+
+        log.info("URL encurtada com sucesso: {} -> {}", request.getUrl(), shortCode);
+
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/{shortCode}")
                 .buildAndExpand(shortCode)
