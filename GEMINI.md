@@ -28,7 +28,7 @@ Todas as ações geradas devem incluir metadados para rastreabilidade:
 
 ### FASE 2: DESENVOLVIMENTO
 * **@task** `[descrição]` -> Criação rápida de tasks no GitHub Projects ou Issues.
-* **@code** `[issue-id]` -> O @Dev gera o código.
+* **@code** `[issue-id]` -> O @Dev gera o código. Após o commit, a issue é fechada com um comentário resumindo as mudanças importantes.
 * **@commit** `[msg]` -> Gera commit com assinatura do agente (Trailer).
 * **@cover** `[cobertura]` -> Gera o report de cobertura do codigo do projeto. Depende de já ter estrutura de testes automaticos. Mostra o report com o resultado.
 * **@gen-tests** `[tests]` -> Caso nao tenhamos testes automaticos ainda, cria a estrutura básica, roda o comando @cover para ter a cobertura de codigo e com o resultado gera testes para o codigo não coberto. Se já tivermos a estrutura pula a criação da estrutura basica de testes, executa o comando @cover e gera testes para partes do código não cobertos.
