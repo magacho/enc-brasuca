@@ -3,7 +3,6 @@ package com.nanolink.backend.controller;
 import com.nanolink.backend.dto.ShortenUrlRequest;
 import com.nanolink.backend.dto.ShortenUrlResponse;
 import com.nanolink.backend.service.UrlShorteningService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +14,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequiredArgsConstructor
 public class UrlShortenerController {
 
     private final UrlShorteningService urlShorteningService;
+
+    public UrlShortenerController(UrlShorteningService urlShorteningService) {
+        this.urlShorteningService = urlShorteningService;
+    }
 
     @PostMapping("/api/v1/shorten")
     public ResponseEntity<ShortenUrlResponse> shortenUrl(@RequestBody ShortenUrlRequest request) {
